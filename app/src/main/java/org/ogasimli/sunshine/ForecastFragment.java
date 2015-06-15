@@ -1,5 +1,6 @@
 package org.ogasimli.sunshine;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -49,7 +50,7 @@ public class ForecastFragment extends Fragment {
 
         if (id == R.id.action_refresh) {
             FetchWetherTask fetchWetherTask = new FetchWetherTask();
-            fetchWetherTask.execute();
+            fetchWetherTask.execute("94043");
         }
 
         return super.onOptionsItemSelected(item);
@@ -106,7 +107,20 @@ public class ForecastFragment extends Fragment {
                 // Construct the URL for the OpenWeatherMap query
                 // Possible parameters are avaiable at OWM's forecast API page, at
                 // http://openweathermap.org/API#forecast
-                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7");
+                final String FORECAST_BASE_URL ="http://api.openweathermap.org/data/2.5/forecast/daily?";
+                final String QEURY_PARAM = "q";
+                final String FORMAT_PARAM = "mode";
+                final String UNITS_PARAM = "units";
+                final String DAYS_PARAM = "cnt";
+
+                Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
+                        .appendQueryParameter(QEURY_PARAM, params[0])
+                        .appendQueryParameter(FORMAT_PARAM, "json")
+                        .appendQueryParameter(UNITS_PARAM, "metric")
+                        .appendQueryParameter(DAYS_PARAM, Integer.toString(7))
+                        .build();
+
+                URL url = new URL(builtUri.toString());
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
