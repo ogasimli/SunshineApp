@@ -1,9 +1,11 @@
 package org.ogasimli.sunshine;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.text.format.Time;
 import android.util.Log;
@@ -60,7 +62,9 @@ public class ForecastFragment extends Fragment {
 
         if (id == R.id.action_refresh) {
             FetchWetherTask fetchWetherTask = new FetchWetherTask();
-            fetchWetherTask.execute("94043");
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String location = prefs.getString(getString(R.string.pref_title_key),getString(R.string.pref_default_display_name));
+            fetchWetherTask.execute(location);
         }
 
         return super.onOptionsItemSelected(item);
