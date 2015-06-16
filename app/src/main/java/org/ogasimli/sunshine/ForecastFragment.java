@@ -97,7 +97,7 @@ public class ForecastFragment extends Fragment {
     public void updateWeather(){
         FetchWetherTask fetchWetherTask = new FetchWetherTask();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String location = prefs.getString(getString(R.string.pref_title_key),getString(R.string.pref_default_display_name));
+        String location = prefs.getString(getString(R.string.pref_location_title_key),getString(R.string.pref_location_default_display_name));
         fetchWetherTask.execute(location);
     }
 
