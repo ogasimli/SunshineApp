@@ -126,11 +126,28 @@ public class ForecastFragment extends Fragment {
          */
         private String formatHighLows(double high, double low) {
             // For presentation, assume the user doesn't care about tenths of a degree.
-            long roundedHigh = Math.round(high);
-            long roundedLow = Math.round(low);
+            String highLowStr = null;
+            long roundedHigh;
+            long roundedLow;
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String unit = prefs.getString(getString(R.string.pref_location_title_key),
+                    getString(R.string.pref_location_default_display_name));
 
-            String highLowStr = roundedHigh + "/" + roundedLow;
+            if (unit==0){
+                roundedHigh = celciusToFarenheit(high);
+                roundedLow = celciusToFarenheit(low);
+            }else {
+                roundedHigh = Math.round(high);
+                roundedLow = Math.round(low);
+            }
+
+            highLowStr = roundedHigh + "/" + roundedLow;
             return highLowStr;
+        }
+
+        private long celciusToFarenheit (double metric){
+            long imperial = Math.round(metric * 9 / 5 +32);
+            return imperial;
         }
 
         /**
