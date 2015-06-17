@@ -15,12 +15,10 @@
          dismiss it. -->
     <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
     <ListPreference
-        android:key="@string/pref_unit_title_key"
-        android:title="@string/pref_unit_title_display_name"
-        android:defaultValue="1"
-        android:entries="@array/pref_unit_list_titles"
-        android:entryValues="@array/pref_unit_list_values"
-        android:negativeButtonText="@null"
-        android:positiveButtonText="@null" />
+        android:title="@string/pref_units_label"
+        android:key="@string/pref_units_key"
+        android:defaultValue="@string/pref_units_metric"
+        android:entryValues="@array/pref_units_values"
+        android:entries="@array/pref_units_options" />
 
 </PreferenceScreen>
